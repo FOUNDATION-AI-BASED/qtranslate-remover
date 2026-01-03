@@ -3,7 +3,7 @@ Contributors: AmirHelzer, strategio, dgwatkins
 Tags: qtranslate, qtranslatex, wpml, multilingual, i18n
 Requires at least: 3.0
 Tested up to: 6.9
-Stable tag: 3.0.2
+Stable tag: 3.0.3
 License: GPLv2 or later
 
 Allows a complete uninstall and cleanup of qTranslate X meta-tags or importing translations into WPML
