@@ -1,51 +1,53 @@
-Primary the Qtranslate removing functionality was used and tested other features were not included in our tests!
-
-Please do not use this pluin activly on your website disable and remove it after you removed the qtranslate translations since we cannot guranteed the safety of your database if this plugin is used on a production website and not being removed after the job is done!!!
-
-=== qTranslate Cleanup and WPML Import ===
-Contributors: OnTheGoSystems
-Donate link: http://wpml.org
-Tags: qTranslate, wpml, multilingual, i18n, conversion, import, uninstall, cleanup
+=== qTranslate X Cleanup and WPML Import ===
+Contributors: AmirHelzer, strategio, dgwatkins
+Tags: qtranslate, qtranslatex, wpml, multilingual, i18n
 Requires at least: 3.0
-Tested up to: 6.8.3
-Stable tag: 1.5
+Tested up to: 6.9
+Stable tag: 3.0.2
 License: GPLv2 or later
 
-Allows a complete uninstall and cleanup of qTranslate meta-tags or importing translations into WPML
+Allows a complete uninstall and cleanup of qTranslate X meta-tags or importing translations into WPML
 
 == Description ==
 
-**End of development: as of version 1.5, we're not continuing the development on this plugin.
-This doesn't mean that it's broken. The plugin works well for most of the people and helped thousands of people to migrate from a free multilingual plugin but without enough support and features to WPML, a more complete solution that also offers great support.**
-
-
-
-
-This plugin can either cleanup the qTranslate meta-HTML tags from your site and leave just one 'clean' language, or migrate all languages to WPML's format.
+This plugin can either cleanup the qTranslate X meta-HTML tags from your site and leave just one 'clean' language, or migrate all languages to WPML's format.
 
 **Very important: This plugin will modify the entire content of your database. You must backup your database before attempting to use it.**
 
-For complete documentation, please refer to the [qTranslate uninstall and WPML importer documentation](http://wpml.org/documentation/related-projects/qtranslate-importer/).
+For complete documentation, please refer to the [qTranslate uninstall and WPML importer documentation](https://wpml.org/documentation/related-projects/qtranslate-importer/?utm_source=plugin&utm_medium=gui&utm_campaign=qtranslate).
 
-= qTranslate uninstall and cleanup mode =
+= What’s new in the cleanup UI =
+- Detect languages: scans your content to discover language codes automatically.
+- Detect leftovers: counts items that still contain qTranslate tags before you start.
+- Progress bar and log: shows batch progress and detailed activity.
+- Cleans after itself: removes temporary flags and qTranslate options when done.
+
+= qTranslate X uninstall and cleanup mode =
+
+**Must-read: All the issues mentioned in the reviews are solved. We are happy to announce the reintroduction of the clean-up mode with plugin version 2.0**
 
 This mode is intended if you just want to keep one language in your site and you want to clean up the language meta-tags that qTranslate added. For this mode, you don't need WPML.
 
 Instructions:
 
-1. Save all qTranslate settings
-2. Go to the Plugins admin page and de-activate qTranslate
-3. Install & activate QT Importer
-4. Go to Options -> QT Importer, select language to keep and click Start. 
+1. Go to the Plugins admin page and de-activate qTranslate / qTranslate X.
+2. Install & activate QT Importer.
+3. Go to Options -> QT Importer.
+4. Click “Detect languages” to auto-populate the language selector (optional).
+5. Choose the language to keep (or type it manually, e.g. “en”, “pt-br”).
+6. Click “Detect leftovers” to see how many items still have qTranslate tags.
+7. Tick both confirmation checkboxes.
+8. Click “Clean” to remove all language tags and keep only the chosen language text.
+9. When finished, the tool removes temporary flags and qTranslate settings.
 
-= Migrate all languages from qTranslate to WPML =
+= Migrate all languages from qTranslate X to WPML =
 
 In this mode, the QT import plugin will convert the language information from qTranslate's language tags format to WPML's post-per-language format. For this to work, you must have [WPML](http://wpml.org) active in the site (but not necessarily configured).
 
 Instructions:
 
 1. Save all qTranslate settings
-2. Go to the Plugins admin page and de-activate qTranslate
+2. Go to the Plugins admin page and de-activate qTranslate X
 3. Have WPML activated, but not yet configured (just activated)
 4. Install & activate QT Importer
 5. Go to Options -> QT Importer and click Start
@@ -63,11 +65,11 @@ The import tool converts posts, meta data and taxonomy. We tried to take every p
 
 = Which version of WPML can I use this import with? =
 
-It's been tested on WPML 2.4.3 and above. Previous versions might work, but might have unpredictable behavior.
+It's been tested on WPML 3.5.3 and above. Previous versions might work, but might have unpredictable behavior.
 
 = Do I have to get WPML to use this? =
 
-This plugin has two modes of operation. Without WPML, it will let you clean the qTranslate language codes from your content and keep just one language. With WPML, you'll be able to keep all languages.
+This plugin has two modes of operation. Without WPML, it will let you clean the qTranslate X language codes from your content and keep just one language. With WPML, you'll be able to keep all languages.
 
 = How long does the import take? =
 
@@ -83,15 +85,105 @@ Upload the plugin to your blog, activate it.
 
 == Changelog ==
 
+= 3.0.3-dev =
+* New cleanup UI with Detect languages and Detect leftovers buttons.
+* Visual progress bar and improved activity log.
+* Robust parsing for legacy qTranslate syntaxes (<!--:en-->, <!--:-->, [:EN], etc.).
+* Normalizes language codes (e.g. pt_BR -> pt-br) and adds fallback selection.
+* Cleans temporary flags and qTranslate options on completion.
+
+= 3.0.2 =
+* Add a security check to the cleanup process.
+* Fix importing posts when QTranslate language code is uppercase.
+* Fix importing posts with a title that is 3 characters long.
+
+= 3.0.1 =
+* Bump tested WordPress version.
+
+= 3.0.0 =
+* Fixed the display of the notice to disable qTranslate before the import process.
+* Moved scripts into separate directory.
+* Updated documentation link.
+* Fixed not created htaccess redirects.
+
+= 2.0.4 =
+* Fixed PHP Fatal error: Uncaught ArgumentCountError when importing taxonomy terms ( wpmlbridge-198 )
+
+= 2.0.2 =
+* fixed readme file
+
+= 2.0 =
+* cleanup mode reintroduction, you can use this plugin again to clean posts after disabling qTranslate plugin (wpmlbridge-189)
+
+= 1.9.8 =
+* fixed issue when all posts are bing imported to default language (wpmlbridge-188)
+
+= 1.9.7.2 =
+* added information about WP tested version
+
+= 1.9.7 =
+* added support for Greek language import (wpmlbridge-184)
+
+= 1.9.6 = 
+* Fixed accidental cutting last three letters from titles if the titles are not translated (wpmlbridge-180)
+
+= 1.9.5 =
+* Fixed migration when qTranslate uses default url structure (wpmlbridge-178)
+
+= 1.9.4.1 = 
+* Fixed the issue with import containing <!--more--> tags (wpmlbridge-172)
+
+= 1.9.4 = 
+* Fixed the issue with import containing <!--more--> tags (wpmlbridge-172)
+
+= 1.9.3 =
+* Fixed PHP warning about invalid argument for join() (wpmlbridge-153)
+
+= 1.9.2 =
+* Fixed issues with empty language names (wpmlbridge-146)
+* More descriptive instructions how to update qTranslate settings before migration (wpmlbridge-145)
+
+
+= 1.9.1 = 
+* Fixed warnings (wpmlbridge-139)
+
+= 1.9 =
+* Better handling uppercased language codes (wpmlbridge-136)
+* Handling empty titles (wpmlbridge-138)
+* Fixed missing language information about primary language (wpmlbridge-137)
+* Removed notices during metadata import (wpmlbridge-139)
+
+= 1.8.1 =
+* Fixed issue with uppercased language codes (wpmlbridge-103)
+
+= 1.8 =
+* Added support for legacy qTranslate (without X) syntax
+
+= 1.7.2 =
+* Changed notice to report issues in our forum
+
+= 1.7.1 =
+* Added notice to report any issue to our forum
+
+= 1.7 =
+* Plugin updated to be compatible with WPML 3.5 and newer
+
+= 1.6.1 =
+* qTranslate name updated to qTranslate X to avoid confusions (old qTranslate, without X is not supported)
+
+= 1.6 =
+* Tested with WP 4.6 and 4.7-nightly
+* Updated to use current WPML functions (as in WPML 3.5.3.1)
+
 = 1.5 =
 * Tested with WP 4.1
 * Changed title format to "%Original title% (%lang_code%)" if title not translate
-* Bug fix: terms not synchronized when used uppercase codes in qTranslate
+* Bug fix: terms not synchronized when used uppercase codes in qTranslate X
 * Bug fix: translated posts not imported if title not translated
 
 = 1.4 =
 * Tested with WP 4.0
-* Added dependency for disable qTranslate before import to WPML
+* Added dependency for disable qTranslate X before import to WPML
 * Added compatibility with WPML 3.1.8.*
 * Bug fix: convert language codes from uppercase to lowercase
 
@@ -128,8 +220,3 @@ Upload the plugin to your blog, activate it.
 
 = 0.2 =
 * Includes bug fixes and better support for custom fields
-
-
-
-
-

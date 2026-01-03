@@ -1,4 +1,4 @@
-    jQuery(document).ready(function(){
+    jQuery(function(){
         jQuery('#qt_import_start').click(qt_import_terms_batch);
         
         var qt_terms_batch = 0;
@@ -104,6 +104,51 @@
         })
         
         jQuery('#qt_clean_form').submit(qt_clean_process_batch);
+        var qt_clean_total = 0;
+        var qt_clean_total_processed = 0;
+        jQuery('#qt_clean_detect_langs').click(function(){
+            var $sel = jQuery('#qt_clean_form select[name=language_keep]');
+            jQuery.ajax({
+                type: "POST",
+                url: ajaxurl,
+                dataType: 'json',
+                data: 'action=qt_detect_langs_ajx&qt_do_clean='+jQuery('#qt_do_clean').val(),
+                success: function(res){
+                    if(res.languages && res.languages.length){
+                        $sel.find('option').not(':first').remove();
+                        res.languages.forEach(function(code){
+                            $sel.append('<option value="'+code+'">'+code.toUpperCase()+'</option>');
+                        });
+                        jQuery('#qt_clean_detect_result').html('Detected languages: '+res.languages.join(', '));
+                    }else{
+                        jQuery('#qt_clean_detect_result').html('No languages detected; you can type one manually.');
+                    }
+                }
+            })
+        });
+        jQuery('#qt_clean_detect').click(function(){
+            jQuery('#qt_clean_detect_result').html('');
+            jQuery('#qt_clean_progress').hide();
+            jQuery.ajax({
+                type: "POST",
+                url: ajaxurl,
+                dataType: 'json',
+                data: 'action=qt_clean_count_ajx&qt_do_clean='+jQuery('#qt_do_clean').val(),
+                success: function(res){
+                    qt_clean_total = res.total || 0;
+                    qt_clean_total_processed = 0;
+                    if(qt_clean_total>0){
+                        jQuery('#qt_clean_detect_result').html('Found '+qt_clean_total+' items to clean');
+                        jQuery('#qt_clean_progress').show();
+                        jQuery('#qt_clean_progress_bar').css('width','0%');
+                        jQuery('#qt_clean_status').show();
+                    }else{
+                        jQuery('#qt_clean_detect_result').html('No leftovers detected');
+                        jQuery('#qt_clean_status').show();
+                    }
+                }
+            })
+        });
             
         var qt_clean_batch = 0;
         var qt_keepgoing = 0;
@@ -111,14 +156,23 @@
             qt_clean_batch++;
             jQuery('#qt_clean_working').fadeIn();
             jQuery('#qt_clean_start').attr('disabled', 'disabled');
+            var langSel = jQuery('#qt_clean_form select[name=language_keep]').val();
+            var langInput = jQuery('#qt_clean_form input[name=language_keep_input]').val();
+            var lang = langSel.length ? langSel : langInput;
             jQuery.ajax({
                 type: "POST",
                 url: ajaxurl,
                 dataType: 'json',
-                data: 'action=qt_clean_ajx&lang='+jQuery('#qt_clean_form select[name=language_keep]').val()+'&qt_clean_batch='+qt_clean_batch+'&qt_keepgoing='+qt_keepgoing,
+                data: 'action=qt_clean_ajx&lang='+lang+'&qt_clean_batch='+qt_clean_batch+'&qt_keepgoing='+qt_keepgoing+'&qt_do_clean='+jQuery('#qt_do_clean').val(),
                 success: function(res){                                                        
                     jQuery('#qt_clean_status').html(res.messages.join('<br />') + jQuery('#qt_clean_status').html());
                     jQuery('#qt_clean_status:hidden').show();
+                    if(typeof res.processed_batch !== 'undefined' && qt_clean_total>0){
+                        qt_clean_total_processed += res.processed_batch;
+                        var pct = Math.min(100, Math.floor((qt_clean_total_processed/qt_clean_total)*100));
+                        jQuery('#qt_clean_progress').show();
+                        jQuery('#qt_clean_progress_bar').css('width', pct+'%');
+                    }
                     if(res.keepgoing){
                         qt_keepgoing = 1;
                         qt_clean_process_batch();        
