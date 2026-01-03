@@ -1,3 +1,5 @@
+## Bug Discoovered media file names are not back converted to the choosen language! NEEDS FURTHER INVESTIGATION! ##
+
 === qTranslate X Cleanup and WPML Import ===
 Contributors: AmirHelzer, strategio, dgwatkins
 Tags: qtranslate, qtranslatex, wpml, multilingual, i18n
