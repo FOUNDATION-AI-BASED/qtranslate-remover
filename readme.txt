@@ -1,3 +1,7 @@
+Primary the Qtranslate removing functionality was used and tested other features were not included in our tests!
+
+## Please do not use this pluin activly on your website disable and remove it after you removed the qtranslate translations since we cannot guranteed the safety of your database if this plugin is used on a production website and not being removed after the job is done!!!
+
 === qTranslate Cleanup and WPML Import ===
 Contributors: OnTheGoSystems
 Donate link: http://wpml.org
@@ -124,6 +128,7 @@ Upload the plugin to your blog, activate it.
 
 = 0.2 =
 * Includes bug fixes and better support for custom fields
+
 
 
 
