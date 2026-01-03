@@ -3,7 +3,7 @@ Contributors: OnTheGoSystems
 Donate link: http://wpml.org
 Tags: qTranslate, wpml, multilingual, i18n, conversion, import, uninstall, cleanup
 Requires at least: 3.0
-Tested up to: 4.1
+Tested up to: 6.8.3
 Stable tag: 1.5
 License: GPLv2 or later
 
@@ -124,5 +124,6 @@ Upload the plugin to your blog, activate it.
 
 = 0.2 =
 * Includes bug fixes and better support for custom fields
+
 
 
